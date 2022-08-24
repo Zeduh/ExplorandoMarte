@@ -62,6 +62,7 @@ function criarNovaSonda(comandos) {
             coordenadaY,
             direcao,
         });
+        // console.log(`Sonda criada em ${coordenadaX} ${coordenadaY} ${direcao}`) /* TESTE */
         } else {
             throw new Error('Dados de inicialização de sonda inválidos');
     }
@@ -81,8 +82,8 @@ function realizarInstrucoesSonda(comandos) {
                     virarSonda(comando, indexSondaAtual)
                     break;
                 case 'M':
-                    //moverSonda(indexSondaAtual)
-                    // console.log('Movendo Sonda') TESTE
+                    // console.log('Movendo Sonda') /* TESTE */
+                    moverSonda(indexSondaAtual)
                     break;
                 case 'P':
                 default:
@@ -116,6 +117,30 @@ function virarSonda(direcao, indexSonda) {
     }
 }
 
+// Realiza a ação de mover a sonda verificando o espaço disponível.
+function moverSonda (indexSonda) {
+    const sonda = listaSondas[indexSonda];
+    if(sonda) {
+        switch(sonda.direcao) {
+            case 'N':
+                listaSondas[indexSonda].coordenadaY = Math.min(listaSondas[indexSonda].coordenadaY+1, tamanhoPlanalto.maxY);
+                break;
+            case 'E':
+                listaSondas[indexSonda].coordenadaX = Math.min(listaSondas[indexSonda].coordenadaX+1, tamanhoPlanalto.maxX);
+                break;
+            case 'S':
+                listaSondas[indexSonda].coordenadaY = Math.min(listaSondas[indexSonda].coordenadaY-1, tamanhoPlanalto.maxY);
+                break;
+            case 'W':
+                listaSondas[indexSonda].coordenadaX = Math.min(listaSondas[indexSonda].coordenadaX-1, tamanhoPlanalto.maxX);
+                break;
+        }
+        // console.log('Sonda movida') /* TESTE */
+    } else {
+        throw new Error('Sonda não encontrada')
+    }
+}
+
 /* Utils */
 // Verifica se a variável é um numero
 function isNumber (valor) {
@@ -124,9 +149,9 @@ function isNumber (valor) {
 
 //Retorna a saida com as posições x e y das sonda junto com a direção
 function saidaSondas () {
-    listaSondas.forEach((sonda) => console.log(`${sonda.x} ${sonda.y} ${sonda.direcao}`))
+    listaSondas.forEach((sonda) => console.log(`${sonda.coordenadaX} ${sonda.coordenadaY} ${sonda.direcao}`))
 }
 
 iterarLinhas()
-// console.log(tamanhoPlanalto)
-// console.log(listaSondas)
+// console.log(tamanhoPlanalto) /* TESTE */
+// console.log(listaSondas) /* TESTE */
