@@ -1,0 +1,19 @@
+{
+  "name": "explorandomarte",
+  "version": "1.0.0",
+  "description": "Programa para navegar sondas em marte.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/Zeduh/ExplorandoMarte.git"
+  },
+  "author": "Zeduh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zeduh/ExplorandoMarte/issues"
+  },
+  "homepage": "https://github.com/Zeduh/ExplorandoMarte#readme"
+}
