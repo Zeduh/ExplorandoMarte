@@ -35,7 +35,7 @@ function iterarLinhas() {
     
     saidaSondas();
 }
-
+//Chama função de iterar as linhas, recebendo os dados e resolvendo os comandos linha a linha.
 iterarLinhas();
 
 /* Manipuladores */
