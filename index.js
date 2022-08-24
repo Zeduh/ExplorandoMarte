@@ -36,6 +36,8 @@ function iterarLinhas() {
     saidaSondas();
 }
 
+iterarLinhas();
+
 /* Manipuladores */
 // Recebe primeira linhas de comando para definir as coordenadas maximas do planalto
 // Envia erro em caso de dados inválidos
@@ -129,15 +131,15 @@ function moverSonda (indexSonda) {
                 listaSondas[indexSonda].coordenadaX = Math.min(listaSondas[indexSonda].coordenadaX+1, tamanhoPlanalto.maxX);
                 break;
             case 'S':
-                listaSondas[indexSonda].coordenadaY = Math.min(listaSondas[indexSonda].coordenadaY-1, tamanhoPlanalto.maxY);
+                listaSondas[indexSonda].coordenadaY = Math.max(listaSondas[indexSonda].coordenadaY-1, tamanhoPlanalto.minY);
                 break;
             case 'W':
-                listaSondas[indexSonda].coordenadaX = Math.min(listaSondas[indexSonda].coordenadaX-1, tamanhoPlanalto.maxX);
+                listaSondas[indexSonda].coordenadaX = Math.max(listaSondas[indexSonda].coordenadaX-1, tamanhoPlanalto.minX);
                 break;
         }
         // console.log('Sonda movida') /* TESTE */
     } else {
-        throw new Error('Sonda não encontrada')
+        throw new Error('Sonda não encontrada');
     }
 }
 
@@ -149,9 +151,8 @@ function isNumber (valor) {
 
 //Retorna a saida com as posições x e y das sonda junto com a direção
 function saidaSondas () {
-    listaSondas.forEach((sonda) => console.log(`${sonda.coordenadaX} ${sonda.coordenadaY} ${sonda.direcao}`))
+    listaSondas.forEach((sonda) => console.log(`${sonda.coordenadaX} ${sonda.coordenadaY} ${sonda.direcao}`));
 }
 
-iterarLinhas()
 // console.log(tamanhoPlanalto) /* TESTE */
 // console.log(listaSondas) /* TESTE */
