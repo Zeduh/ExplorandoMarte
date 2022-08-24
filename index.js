@@ -4,6 +4,7 @@ const {readFileSync, promises: fsPromises} = require('fs')
 let tamanhoPlanalto = {minX: 0, minY: 0, maxX: 0, maxY: 0}
 let listaSondas = []
 const direcoesValidas = ['N', 'E', 'S', 'W'];
+const comandosMovimentoValidos = ['L', 'R', 'M', 'P'];
 
 // Leitura e tratamento dos dados
 // Receber conteudo do arquivo
@@ -25,8 +26,12 @@ function isNumber (valor) {
     return !isNaN(Number(valor)) && isFinite(valor);
 }
 
-/* Manipuladores */
+//Retorna a saida com as posições x e y das sonda junto com a direção
+function saidaSondas () {
+    listaSondas.forEach((sonda) => console.log(`${sonda.x} ${sonda.y} ${sonda.direcao}`))
+}
 
+/* Manipuladores */
 // Recebe primeira linhas de comando para definir as coordenadas maximas do planalto
 // Envia erro em caso de dados inválidos
 function definirCoordenadaMaxima(comandos) {
@@ -54,23 +59,52 @@ function criarNovaSonda(comandos) {
         });
         } else {
             throw new Error('Dados de inicialização de sonda inválidos');
-        }
     }
-    
+}
 
-function iterarLinhas(linhas) {
-    linhas = converterConteudoLinha()
+function realizarInstrucoesSonda(comandos) {
+    const listaComandos = comandos.split('');
+    const indexSondaAtual = listaSondas.length - 1;
+    listaComandos.map((comando) => comando.toUpperCase()).forEach((comando) => {
+        if(comandosMovimentoValidos.includes(comando)) {
+            switch(comando) {
+                case 'L':
+                case 'R':
+                    console.log('Virando Sonda')
+                    // virarSonda(comando, indexSondaAtual)
+                    break;
+                case 'M':
+                    console.log('Movendo Sonda')
+                    //moverSonda(indexSondaAtual)
+                    break;
+                case 'P':
+                default:
+                    return;
+            }
+        } else {
+            throw new Error('Comandos de movimentação inválidos')
+        }
+    })
+}
+
+function iterarLinhas() {
+    let linhas = converterConteudoLinha()
     linhas.forEach((comandos, indexLinha) => {
         if(indexLinha === 0) {
             definirCoordenadaMaxima(comandos);
         } else if(indexLinha % 2 === 1) {
+            // linhas pares devem ser coordenadas de posição inicial de uma sonda.
             criarNovaSonda(comandos);
+        } else {
+            // linhas impares devem ser instruções de movimentação de uma sonda.
+            realizarInstrucoesSonda(comandos);
         }
-    })
-    return linhas
+    });
+    
+    saidaSondas();
 }
 
 
 console.log(iterarLinhas())
-console.log(tamanhoPlanalto)
-console.log(listaSondas)
+// console.log(tamanhoPlanalto)
+// console.log(listaSondas)
